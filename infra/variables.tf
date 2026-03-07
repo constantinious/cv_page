@@ -58,7 +58,7 @@ variable "tags" {
   description = "Common tags for all resources"
   type        = map(string)
   default = {
-    Project   = "cloud-resume-challenge"
+    Project   = "cloud-resume"
     ManagedBy = "terraform"
   }
 }

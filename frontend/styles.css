@@ -676,13 +676,14 @@ body {
 }
 
 .project-card h3 a {
-    color: var(--color-text-heading);
+    color: var(--color-accent);
     text-decoration: none;
     transition: var(--transition);
 }
 
 .project-card h3 a:hover {
-    color: var(--color-primary-light);
+    color: #22d3ee;
+    text-decoration: underline;
 }
 
 .project-card p {
