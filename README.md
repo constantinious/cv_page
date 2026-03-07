@@ -1,6 +1,6 @@
-# ☁️ Cloud Resume Challenge
+# ☁️ Cloud Resume
 
-A full-stack serverless resume website built on AWS, following the [Cloud Resume Challenge](https://cloudresumechallenge.dev/).
+A full-stack serverless resume website built on AWS, inspired by the [Cloud Resume Challenge](https://cloudresumechallenge.dev/).
 
 ![Architecture Diagram](generated-diagrams/architecture.png)
 

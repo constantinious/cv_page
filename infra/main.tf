@@ -1,5 +1,5 @@
 # ============================================================
-# Cloud Resume Challenge - Terraform Configuration
+# Cloud Resume - Terraform Configuration
 # ============================================================
 # This configuration deploys:
 #   - S3 bucket for static website hosting
