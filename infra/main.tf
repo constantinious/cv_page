@@ -29,13 +29,14 @@ terraform {
     }
   }
 
+  # NOTE: For local use, run: terraform init -backend-config="profile=KostasAdmin"
+  # In CI (GitHub Actions), OIDC provides credentials via environment variables.
   backend "s3" {
     bucket       = "cloud-resume-state-992382750905"
     key          = "cloud-resume/terraform.tfstate"
     region       = "us-east-1"
     use_lockfile = true
     encrypt      = true
-    profile      = "KostasAdmin"
   }
 }
 
