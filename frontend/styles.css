@@ -670,24 +670,25 @@ body {
 }
 
 .project-card h3 {
-    color: var(--color-text-heading);
-    font-size: 1.1rem;
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 600;
     margin-bottom: 0.75rem;
 }
 
 .project-card h3 a {
-    color: var(--color-accent);
+    color: #ffffff;
     text-decoration: none;
     transition: var(--transition);
 }
 
 .project-card h3 a:hover {
-    color: #22d3ee;
+    color: var(--color-primary-light);
     text-decoration: underline;
 }
 
 .project-card p {
-    color: var(--color-text);
+    color: #cbd5e1;
     font-size: 0.92rem;
     margin-bottom: 1rem;
     line-height: 1.7;
