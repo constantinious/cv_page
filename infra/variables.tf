@@ -48,6 +48,12 @@ variable "environment" {
   default     = "prod"
 }
 
+variable "github_repo" {
+  description = "GitHub repository (owner/repo) for OIDC trust policy"
+  type        = string
+  default     = "constantinious/cv_page"
+}
+
 variable "tags" {
   description = "Common tags for all resources"
   type        = map(string)
