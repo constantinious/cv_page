@@ -19,8 +19,13 @@ def lambda_handler(event, context):
     Returns the total unique visitor count.
     """
     try:
-        # Extract client IP from event
-        client_ip = event.get("requestContext", {}).get("identity", {}).get("sourceIp", "unknown")
+        # Extract client IP from event (API Gateway HTTP API v2 format)
+        request_context = event.get("requestContext", {})
+        client_ip = (
+            request_context.get("http", {}).get("sourceIp")
+            or request_context.get("identity", {}).get("sourceIp")
+            or "unknown"
+        )
         
         # Get today's date in UTC
         today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -39,7 +44,7 @@ def lambda_handler(event, context):
                 logger.info(f"IP {client_ip} already visited today, not incrementing counter")
                 # Get current total from counter
                 counter_response = table.get_item(Key={"id": "visitor_count"})
-                visitor_count = int(counter_response.get("Attributes", {}).get("visit_count", 0))
+                visitor_count = int(counter_response.get("Item", {}).get("visit_count", 0))
                 
                 return {
                     "statusCode": 200,
