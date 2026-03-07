@@ -34,13 +34,17 @@ def lambda_context():
 
 @pytest.fixture
 def apigw_event():
-    """Create a mock API Gateway event with IP address."""
+    """Create a mock API Gateway HTTP API v2 event with IP address."""
     return {
-        "httpMethod": "POST",
-        "path": "/visitor-count",
-        "headers": {"Content-Type": "application/json"},
+        "version": "2.0",
+        "routeKey": "POST /visitor-count",
+        "headers": {"content-type": "application/json"},
         "requestContext": {
-            "identity": {"sourceIp": "192.168.1.1"}
+            "http": {
+                "method": "POST",
+                "path": "/visitor-count",
+                "sourceIp": "192.168.1.1",
+            }
         },
         "body": None,
     }
@@ -67,9 +71,12 @@ def test_lambda_handler_new_visitor(apigw_event, lambda_context):
 def test_lambda_handler_returning_visitor(apigw_event, lambda_context):
     """Test that returning visitor from same IP same day doesn't increment counter."""
     mock_table = MagicMock()
-    mock_table.get_item.return_value = {
-        "Item": {"id": "2026-03-07#192.168.1.1", "timestamp": "2026-03-07"}
-    }
+    # First get_item: check if IP visited today (yes)
+    # Second get_item: get current visitor count
+    mock_table.get_item.side_effect = [
+        {"Item": {"id": "2026-03-07#192.168.1.1", "timestamp": "2026-03-07"}},
+        {"Item": {"id": "visitor_count", "visit_count": Decimal("42")}},
+    ]
 
     with patch.object(vc, "table", mock_table):
         response = vc.lambda_handler(apigw_event, lambda_context)
@@ -77,6 +84,7 @@ def test_lambda_handler_returning_visitor(apigw_event, lambda_context):
     assert response["statusCode"] == 200
     body = json.loads(response["body"])
     assert body["is_new_visit"] is False
+    assert body["visitor_count"] == 42
     mock_table.update_item.assert_not_called()
 
 
