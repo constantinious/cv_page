@@ -1,8 +1,19 @@
 import json
 import os
+import sys
 import pytest
 from unittest.mock import MagicMock, patch
 from decimal import Decimal
+
+# Add backend to path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
+# Import directly from the module file
+import importlib.util
+lambda_module_path = os.path.join(os.path.dirname(__file__), '..', 'lambda', 'visitor_counter.py')
+spec = importlib.util.spec_from_file_location("visitor_counter", lambda_module_path)
+vc = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(vc)
 
 
 @pytest.fixture
@@ -17,71 +28,79 @@ def lambda_context():
 
 @pytest.fixture
 def apigw_event():
-    """Create a mock API Gateway event."""
+    """Create a mock API Gateway event with IP address."""
     return {
         "httpMethod": "POST",
         "path": "/visitor-count",
         "headers": {"Content-Type": "application/json"},
+        "requestContext": {
+            "identity": {"sourceIp": "192.168.1.1"}
+        },
         "body": None,
     }
 
 
-@patch.dict(os.environ, {"TABLE_NAME": "test-visitor-counter"})
-@patch("backend.lambda.visitor_counter.dynamodb")
-def test_lambda_handler_success(mock_dynamodb, apigw_event, lambda_context):
-    """Test successful visitor count increment."""
+def test_lambda_handler_new_visitor(apigw_event, lambda_context):
+    """Test successful new visitor count increment."""
     mock_table = MagicMock()
+    mock_table.get_item.return_value = {}
     mock_table.update_item.return_value = {
-        "Attributes": {"visit_count": Decimal("42")}
+        "Attributes": {"visit_count": Decimal("1")}
     }
-    mock_dynamodb.Table.return_value = mock_table
 
-    # Re-import to pick up mocked env
-    from backend.lambda.visitor_counter import lambda_handler
-
-    with patch("backend.lambda.visitor_counter.table", mock_table):
-        response = lambda_handler(apigw_event, lambda_context)
+    with patch.object(vc, "table", mock_table):
+        response = vc.lambda_handler(apigw_event, lambda_context)
 
     assert response["statusCode"] == 200
     body = json.loads(response["body"])
-    assert body["visitor_count"] == 42
+    assert body["visitor_count"] == 1
+    assert body["is_new_visit"] == True
     assert "Access-Control-Allow-Origin" in response["headers"]
 
 
-@patch.dict(os.environ, {"TABLE_NAME": "test-visitor-counter"})
-@patch("backend.lambda.visitor_counter.dynamodb")
-def test_lambda_handler_error(mock_dynamodb, apigw_event, lambda_context):
-    """Test error handling when DynamoDB fails."""
+def test_lambda_handler_returning_visitor(apigw_event, lambda_context):
+    """Test that returning visitor from same IP same day doesn't increment counter."""
     mock_table = MagicMock()
-    mock_table.update_item.side_effect = Exception("DynamoDB error")
-    mock_dynamodb.Table.return_value = mock_table
+    mock_table.get_item.return_value = {
+        "Item": {"id": "2026-03-07#192.168.1.1", "timestamp": "2026-03-07"}
+    }
 
-    from backend.lambda.visitor_counter import lambda_handler
+    with patch.object(vc, "table", mock_table):
+        response = vc.lambda_handler(apigw_event, lambda_context)
 
-    with patch("backend.lambda.visitor_counter.table", mock_table):
-        response = lambda_handler(apigw_event, lambda_context)
+    assert response["statusCode"] == 200
+    body = json.loads(response["body"])
+    assert body["is_new_visit"] == False
+    mock_table.update_item.assert_not_called()
+
+
+def test_lambda_handler_error(apigw_event, lambda_context):
+    """Test error handling when DynamoDB update fails."""
+    mock_table = MagicMock()
+    mock_table.get_item.return_value = {}  # First check succeeds
+    mock_table.update_item.side_effect = Exception("DynamoDB error")  # But update fails
+
+    with patch.object(vc, "table", mock_table):
+        response = vc.lambda_handler(apigw_event, lambda_context)
 
     assert response["statusCode"] == 500
     body = json.loads(response["body"])
     assert "error" in body
 
 
-@patch.dict(os.environ, {"TABLE_NAME": "test-visitor-counter"})
-@patch("backend.lambda.visitor_counter.dynamodb")
-def test_cors_headers_present(mock_dynamodb, apigw_event, lambda_context):
+def test_cors_headers_present(apigw_event, lambda_context):
     """Test that CORS headers are present in the response."""
     mock_table = MagicMock()
+    mock_table.get_item.return_value = {}
     mock_table.update_item.return_value = {
         "Attributes": {"visit_count": Decimal("1")}
     }
-    mock_dynamodb.Table.return_value = mock_table
 
-    from backend.lambda.visitor_counter import lambda_handler
-
-    with patch("backend.lambda.visitor_counter.table", mock_table):
-        response = lambda_handler(apigw_event, lambda_context)
+    with patch.object(vc, "table", mock_table):
+        response = vc.lambda_handler(apigw_event, lambda_context)
 
     headers = response["headers"]
     assert headers["Access-Control-Allow-Origin"] == "*"
     assert "Access-Control-Allow-Methods" in headers
     assert "Access-Control-Allow-Headers" in headers
+
