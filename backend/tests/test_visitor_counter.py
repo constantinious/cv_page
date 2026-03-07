@@ -5,15 +5,21 @@ import pytest
 from unittest.mock import MagicMock, patch
 from decimal import Decimal
 
+# Set required env vars BEFORE any module import attempts
+os.environ.setdefault("AWS_DEFAULT_REGION", "us-east-1")
+os.environ.setdefault("TABLE_NAME", "test-visitor-counter")
+
 # Add backend to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-# Import directly from the module file
+# Import directly from the module file (using importlib to avoid 'lambda' keyword)
 import importlib.util
-lambda_module_path = os.path.join(os.path.dirname(__file__), '..', 'lambda', 'visitor_counter.py')
-spec = importlib.util.spec_from_file_location("visitor_counter", lambda_module_path)
-vc = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(vc)
+_spec = importlib.util.spec_from_file_location(
+    "visitor_counter",
+    os.path.join(os.path.dirname(__file__), '..', 'lambda', 'visitor_counter.py')
+)
+vc = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(vc)
 
 
 @pytest.fixture
@@ -54,7 +60,7 @@ def test_lambda_handler_new_visitor(apigw_event, lambda_context):
     assert response["statusCode"] == 200
     body = json.loads(response["body"])
     assert body["visitor_count"] == 1
-    assert body["is_new_visit"] == True
+    assert body["is_new_visit"] is True
     assert "Access-Control-Allow-Origin" in response["headers"]
 
 
@@ -70,7 +76,7 @@ def test_lambda_handler_returning_visitor(apigw_event, lambda_context):
 
     assert response["statusCode"] == 200
     body = json.loads(response["body"])
-    assert body["is_new_visit"] == False
+    assert body["is_new_visit"] is False
     mock_table.update_item.assert_not_called()
 
 
