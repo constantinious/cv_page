@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konstantinos Gkekas - Cloud Engineer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">KG</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="about">
+        <div class="hero-container">
+            <div class="hero-content">
+                <p class="hero-greeting">Hello, I'm</p>
+                <h1 class="hero-name">Konstantinos Gkekas</h1>
+                <h2 class="hero-title">Cloud Engineer</h2>
+                <p class="hero-description">
+                    Passionate about building scalable, secure, and cost-effective cloud
+                    infrastructure. Experienced in AWS, Terraform, CI/CD pipelines, and
+                    modern DevOps practices.
+                </p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                    <a href="#experience" class="btn btn-secondary">View My Work</a>
+                </div>
+                <div class="hero-socials">
+                    <a href="https://github.com/" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:your.email@example.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-graphic">
+                    <div class="cloud-icon"><i class="fas fa-cloud"></i></div>
+                    <div class="orbit orbit-1">
+                        <div class="orbit-dot"><i class="fab fa-aws"></i></div>
+                    </div>
+                    <div class="orbit orbit-2">
+                        <div class="orbit-dot"><i class="fas fa-server"></i></div>
+                    </div>
+                    <div class="orbit orbit-3">
+                        <div class="orbit-dot"><i class="fas fa-shield-halved"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="visitor-counter">
+            <i class="fas fa-eye"></i>
+            <span>Visitors: </span>
+            <span id="visitor-count">Loading...</span>
+        </div>
+    </header>
+
+    <!-- Experience Section -->
+    <section class="section" id="experience">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Cloud Engineer</h3>
+                            <span class="timeline-company">Company Name</span>
+                            <span class="timeline-date">2024 – Present</span>
+                        </div>
+                        <ul class="timeline-details">
+                            <li>Designed and implemented multi-account AWS infrastructure using Terraform and AWS Organizations</li>
+                            <li>Built CI/CD pipelines with GitHub Actions, reducing deployment time by 60%</li>
+                            <li>Implemented monitoring and alerting with CloudWatch, achieving 99.9% uptime SLA</li>
+                            <li>Managed containerized workloads on ECS Fargate and EKS</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>DevOps Engineer</h3>
+                            <span class="timeline-company">Previous Company</span>
+                            <span class="timeline-date">2022 – 2024</span>
+                        </div>
+                        <ul class="timeline-details">
+                            <li>Migrated on-premises applications to AWS, saving 40% on infrastructure costs</li>
+                            <li>Automated infrastructure provisioning with Terraform, managing 200+ resources</li>
+                            <li>Implemented security best practices including IAM policies, VPC design, and encryption</li>
+                            <li>Created Docker-based development environments for 10+ microservices</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Junior Systems Administrator</h3>
+                            <span class="timeline-company">First Company</span>
+                            <span class="timeline-date">2020 – 2022</span>
+                        </div>
+                        <ul class="timeline-details">
+                            <li>Managed Linux and Windows servers in hybrid cloud environments</li>
+                            <li>Wrote Bash and Python scripts to automate routine administration tasks</li>
+                            <li>Implemented backup and disaster recovery solutions</li>
+                            <li>Provided L2/L3 technical support for production systems</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section section-alt" id="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fab fa-aws"></i></div>
+                    <h3>AWS Cloud</h3>
+                    <div class="skill-tags">
+                        <span class="tag">EC2</span>
+                        <span class="tag">Lambda</span>
+                        <span class="tag">S3</span>
+                        <span class="tag">RDS</span>
+                        <span class="tag">DynamoDB</span>
+                        <span class="tag">CloudFront</span>
+                        <span class="tag">Route 53</span>
+                        <span class="tag">VPC</span>
+                        <span class="tag">IAM</span>
+                        <span class="tag">ECS</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-code"></i></div>
+                    <h3>Infrastructure as Code</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Terraform</span>
+                        <span class="tag">CloudFormation</span>
+                        <span class="tag">Terragrunt</span>
+                        <span class="tag">Ansible</span>
+                        <span class="tag">Packer</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-infinity"></i></div>
+                    <h3>CI/CD & DevOps</h3>
+                    <div class="skill-tags">
+                        <span class="tag">GitHub Actions</span>
+                        <span class="tag">Jenkins</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">Kubernetes</span>
+                        <span class="tag">ArgoCD</span>
+                        <span class="tag">Helm</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-terminal"></i></div>
+                    <h3>Programming</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Bash</span>
+                        <span class="tag">Go</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">YAML</span>
+                        <span class="tag">HCL</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Monitoring & Logging</h3>
+                    <div class="skill-tags">
+                        <span class="tag">CloudWatch</span>
+                        <span class="tag">Prometheus</span>
+                        <span class="tag">Grafana</span>
+                        <span class="tag">ELK Stack</span>
+                        <span class="tag">Datadog</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-shield-halved"></i></div>
+                    <h3>Security</h3>
+                    <div class="skill-tags">
+                        <span class="tag">IAM</span>
+                        <span class="tag">WAF</span>
+                        <span class="tag">GuardDuty</span>
+                        <span class="tag">Security Hub</span>
+                        <span class="tag">Secrets Manager</span>
+                        <span class="tag">KMS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="section" id="certifications">
+        <div class="container">
+            <h2 class="section-title">Certifications</h2>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fab fa-aws"></i></div>
+                    <h3>AWS Solutions Architect Associate</h3>
+                    <p class="cert-issuer">Amazon Web Services</p>
+                    <p class="cert-date">Issued: 2024</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fab fa-aws"></i></div>
+                    <h3>AWS Cloud Practitioner</h3>
+                    <p class="cert-issuer">Amazon Web Services</p>
+                    <p class="cert-date">Issued: 2023</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-cube"></i></div>
+                    <h3>HashiCorp Terraform Associate</h3>
+                    <p class="cert-issuer">HashiCorp</p>
+                    <p class="cert-date">Issued: 2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="section section-alt" id="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="education-grid">
+                <div class="edu-card">
+                    <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Bachelor of Science in Computer Science</h3>
+                    <p class="edu-school">University Name</p>
+                    <p class="edu-date">2016 – 2020</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-cloud"></i></div>
+                    <h3>Cloud Resume Challenge</h3>
+                    <p>This website! A full-stack cloud application featuring S3 static hosting, CloudFront CDN, Route 53 DNS, ACM SSL, Lambda visitor counter, DynamoDB, API Gateway, Terraform IaC, and GitHub Actions CI/CD.</p>
+                    <div class="project-tech">
+                        <span class="tag">AWS</span>
+                        <span class="tag">Terraform</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">GitHub Actions</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Multi-Account AWS Landing Zone</h3>
+                    <p>Designed a multi-account AWS architecture with AWS Organizations, SSO, and centralized logging using Terraform modules.</p>
+                    <div class="project-tech">
+                        <span class="tag">AWS Organizations</span>
+                        <span class="tag">Terraform</span>
+                        <span class="tag">SSO</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-docker fa-box"></i></div>
+                    <h3>Kubernetes Microservices Platform</h3>
+                    <p>Built a production-ready EKS cluster with ArgoCD for GitOps, Prometheus/Grafana monitoring, and automated scaling.</p>
+                    <div class="project-tech">
+                        <span class="tag">EKS</span>
+                        <span class="tag">ArgoCD</span>
+                        <span class="tag">Helm</span>
+                        <span class="tag">Prometheus</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section section-alt" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-content">
+                <p class="contact-text">
+                    I'm always interested in discussing cloud architecture, DevOps practices,
+                    and new opportunities. Feel free to reach out!
+                </p>
+                <div class="contact-methods">
+                    <a href="mailto:your.email@example.com" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>your.email@example.com</span>
+                    </a>
+                    <a href="https://linkedin.com/" target="_blank" class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn Profile</span>
+                    </a>
+                    <a href="https://github.com/" target="_blank" class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub Profile</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Konstantinos Gkekas. Built with ☁️ on AWS.</p>
+            <p class="footer-note">
+                This site is a <a href="https://cloudresumechallenge.dev/" target="_blank">Cloud Resume Challenge</a> project — 
+                hosted on S3, served via CloudFront, with a serverless visitor counter.
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

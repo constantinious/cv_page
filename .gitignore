@@ -1,0 +1,41 @@
+# Terraform
+infra/.terraform/
+infra/.build/
+infra/*.tfstate
+infra/*.tfstate.*
+infra/*.tfplan
+infra/tfplan
+infra/.terraform.lock.hcl
+infra/terraform.tfvars
+infra/auth.sh
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.venv/
+venv/
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Lambda build artifacts
+*.zip
+
+# Environment
+.env
+.env.local
+
+# Generated diagrams (keep the committed one)
+# generated-diagrams/
