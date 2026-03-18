@@ -8,6 +8,7 @@ from decimal import Decimal
 # Set required env vars BEFORE any module import attempts
 os.environ.setdefault("AWS_DEFAULT_REGION", "us-east-1")
 os.environ.setdefault("TABLE_NAME", "test-visitor-counter")
+os.environ.setdefault("ALLOWED_ORIGIN", "https://example.com")
 
 # Import directly from the module file (using importlib to avoid 'lambda' keyword)
 import importlib.util
@@ -80,6 +81,6 @@ def test_cors_headers_present(apigw_event, lambda_context):
         response = vc.lambda_handler(apigw_event, lambda_context)
 
     headers = response["headers"]
-    assert headers["Access-Control-Allow-Origin"] == "*"
+    assert headers["Access-Control-Allow-Origin"] == os.environ["ALLOWED_ORIGIN"]
     assert "Access-Control-Allow-Methods" in headers
     assert "Access-Control-Allow-Headers" in headers

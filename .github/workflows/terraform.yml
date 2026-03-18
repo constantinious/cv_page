@@ -61,6 +61,7 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
+        id: plan
         working-directory: ${{ env.WORKING_DIR }}
         run: terraform plan -out=tfplan -no-color
         continue-on-error: true

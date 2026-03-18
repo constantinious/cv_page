@@ -41,6 +41,10 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Inject API endpoint
+        run: |
+          sed -i "s|__API_ENDPOINT__|${{ secrets.API_ENDPOINT }}|g" frontend/script.js
+
       - name: Sync frontend to S3
         run: |
           aws s3 sync frontend/ s3://${{ secrets.S3_BUCKET_NAME }} \

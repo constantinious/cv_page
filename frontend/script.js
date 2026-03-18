@@ -1,7 +1,7 @@
 // ===========================
 // Visitor Counter API
 // ===========================
-const API_ENDPOINT = "https://fs2kyxrht4.execute-api.us-east-1.amazonaws.com/prod/visitor-count";
+const API_ENDPOINT = "__API_ENDPOINT__";
 
 async function updateVisitorCount() {
     const counterElement = document.getElementById("visitor-count");
