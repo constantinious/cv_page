@@ -9,6 +9,7 @@ logger.setLevel(logging.INFO)
 dynamodb = boto3.resource("dynamodb")
 table_name = os.environ.get("TABLE_NAME", "visitor-counter")
 table = dynamodb.Table(table_name)
+allowed_origin = os.environ.get("ALLOWED_ORIGIN", "")
 
 
 def lambda_handler(event, context):
@@ -33,7 +34,7 @@ def lambda_handler(event, context):
             "statusCode": 200,
             "headers": {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Origin": allowed_origin,
                 "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type",
             },
@@ -46,7 +47,7 @@ def lambda_handler(event, context):
             "statusCode": 500,
             "headers": {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Origin": allowed_origin,
             },
             "body": json.dumps({"error": "Could not update visitor count"}),
         }
